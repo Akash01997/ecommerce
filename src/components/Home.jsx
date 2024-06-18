@@ -1,12 +1,25 @@
-import { useState } from "react"
-import Data from "./Data.js"
+import { useEffect, useState } from "react"
+
 import ProductCard from "./ProductCard.jsx"
 
 const Home = () => {
 
-  const [productData, setProductData] = useState([...Data])
-  const [allProductData, setAllProductData] = useState([...Data])
+  const [productData, setProductData] = useState([])
+  const [allProductData, setAllProductData] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
+
+
+ let getData = async()=>{
+  let data = await fetch("http://dummyjson.com/products")
+  let obj = await data.json();
+  setAllProductData(obj.products)
+  setProductData(obj.products)
+ }
+
+ useEffect(()=>{
+  getData()
+ },[])
+
   let handleRating =()=>{
     let filteredRatingData = allProductData.filter((obj)=>{
       return obj.rating > 4
@@ -26,6 +39,7 @@ const Home = () => {
       return obj.title.toLowerCase().includes(searchQuery.toLowerCase())
     });
     setProductData(filteredData)
+    setSearchQuery("")
   }
   return (
       <div className="h-[91vh] w-screen flex flex-col">
