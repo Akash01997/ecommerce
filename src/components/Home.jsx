@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 import ProductCard from "./ProductCard.jsx"
+import ShimmerUI from "./ShimmerUI.jsx"
 
 const Home = () => {
 
@@ -20,6 +21,10 @@ const Home = () => {
   getData()
  },[])
 
+
+ if(allProductData.length ==0){
+  return <ShimmerUI></ShimmerUI>
+ }
   let handleRating =()=>{
     let filteredRatingData = allProductData.filter((obj)=>{
       return obj.rating > 4
@@ -36,11 +41,13 @@ const Home = () => {
 
   let handleSearch=()=>{
     let filteredData = allProductData.filter((obj)=>{
-      return obj.title.toLowerCase().includes(searchQuery.toLowerCase())
+      return obj.title.toLowerCase().includes(searchQuery.toLowerCase().trim)
     });
     setProductData(filteredData)
     setSearchQuery("")
   }
+
+ 
   return (
       <div className="h-[91vh] w-screen flex flex-col">
 
