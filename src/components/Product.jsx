@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ShimmerUi from './ShimmerUI';
+import useCallSingleProductApi from '../useCallSingleProductApi';
 
 const Product = () => {
   let { id } = useParams();
-  let [obj, setObj] = useState(null);
-
-  let getData = async () => {
-    let data = await fetch(`http://dummyjson.com/products/${id}`);
-    let dataObj = await data.json();
-    setObj(dataObj);
-    console.log(dataObj);
-  };
-
-  useEffect(() => {
-    getData();
-  }, [id]); // Include id as dependency to refetch if id changes
+ let obj = useCallSingleProductApi(id);
 
   if (obj == null) return <ShimmerUi />;
 
