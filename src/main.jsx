@@ -7,6 +7,7 @@ import About from './components/About.jsx';
 import Cart from './components/Cart.jsx';
 import Home from './components/Home.jsx';
 import Error from './components/Error.jsx'
+import Product from './components/Product.jsx';
 
 let Router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ let Router = createBrowserRouter([
      {
       path : "/",
       element : <Home></Home>,
+     },
+     {
+      path : "/product/:id",
+      element : <Product></Product>
      },
      
    ],errorElement : <Error></Error>

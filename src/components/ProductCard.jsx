@@ -1,3 +1,4 @@
+
 let ProductCard = ({obj})=>{
 
   let {title, thumbnail, rating, price, category} = obj
