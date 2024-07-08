@@ -1,22 +1,24 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { Theme } from "./ThemeContext";
+import { ThemeStore } from "./ThemeContext";
 
 let Navbar = () => {
 
-  let obj = useContext(Theme);
+  let {theme, setTheme} = useContext(ThemeStore);
 
-  console.log(obj)
+  let darkTheme = 'navbar bg-base-300';
+  let lightTheme = 'navbar bg-slate-300'
+
   return (
     <>
-      <div className="navbar bg-base-300">
+      <div className={theme == 'dark' ? darkTheme : lightTheme}>
         <div className="flex-1">
           <a className="btn btn-ghost text-xl text-green-500">
             <Link to="/"> eStore </Link>
           </a>
         </div>
         <div className="flex-none">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 text-indigo-500 font-bold">
             <li>
               <Link to="/cart">Cart</Link>
             </li>
@@ -24,7 +26,7 @@ let Navbar = () => {
               <Link to="/about">About</Link>
             </li>
             <li>
-              <label className="flex cursor-pointer gap-2">
+              <label className="flex cursor-pointer gap-2 text-indigo-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -43,6 +45,10 @@ let Navbar = () => {
                   type="checkbox"
                   value="synthwave"
                   className="toggle theme-controller"
+                  onClick={ ()=>{
+                    setTheme(theme=='light' ? 'dark' : 'light')
+                    localStorage.setItem("Theme",theme=='light' ? 'dark' : 'light')  
+                  }}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

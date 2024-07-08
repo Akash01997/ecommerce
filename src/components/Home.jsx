@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 
 import ProductCard from "./ProductCard.jsx";
 import ShimmerUI from "./ShimmerUI.jsx";
+import { useContext } from "react";
+import { ThemeStore } from "./ThemeContext";
+
 
 const Home = () => {
   const [productData, setProductData] = useState([]);
   const [allProductData, setAllProductData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+
+  let {theme} = useContext(ThemeStore)
 
   let getData = async () => {
     let data = await fetch("http://dummyjson.com/products");
@@ -44,8 +49,11 @@ const Home = () => {
     setSearchQuery("");
   };
 
+  let darkTheme = "min-h-[91vh] w-screen flex flex-col"
+  let lightTheme = "min-h-[91vh] w-screen flex flex-col bg-gray-500"
+
   return (
-    <div className="h-[91vh] w-screen flex flex-col">
+    <div className={theme == "light" ? lightTheme : darkTheme}>
       <div className="utility flex w-100 justify-around mt-2">
         <button className="btn btn-primary" onClick={handleRating}>
           Top-Rating

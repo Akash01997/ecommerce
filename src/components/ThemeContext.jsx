@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { createContext } from 'react'
 
-export let Theme = createContext(null);
+export let ThemeStore = createContext();
 
 const ThemeContext = ({children}) => {
 
-    let [theme, setTheme] = useState("dark");
+    let [theme, setTheme] = useState(localStorage.getItem("Theme"));
     
   return (
-    <Theme.Provider value={{theme, setTheme}}>
+    <ThemeStore.Provider value={{theme, setTheme}}>
       {children}
-    </Theme.Provider>
+    </ThemeStore.Provider>
   )
 }
 
